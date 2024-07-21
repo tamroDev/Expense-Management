@@ -1,0 +1,39 @@
+/* Đặt các tùy chỉnh cơ bản cho toàn bộ lịch */
+.custom-calendar {
+  @apply w-full;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  border: none;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  width: 100%;
+  padding: 12px;
+}
+
+/* Tùy chỉnh header của lịch */
+.react-calendar__navigation {
+  @apply bg-black text-white rounded-t-lg p-2 flex justify-between items-center;
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+/* Tùy chỉnh các nút điều hướng */
+.react-calendar__navigation button {
+  @apply bg-gray-800 hover:bg-gray-700 text-white font-bold py-1 px-2 rounded mx-1;
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+/* Tùy chỉnh các ô ngày */
+.react-calendar__tile {
+  @apply text-center p-2 rounded hover:bg-gray-200;
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+/* Tùy chỉnh các ô ngày hiện tại */
+.react-calendar__tile--now {
+  @apply bg-gray-300;
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+/* Tùy chỉnh các ô ngày đã chọn */
+.react-calendar__tile--active {
+  @apply bg-black text-white;
+  font-family: "Plus Jakarta Sans", sans-serif;
+}

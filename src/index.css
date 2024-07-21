@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+  padding: 0;
+  font: inherit;
+}
+img,
+picture,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+input,
+select,
+textarea {
+  background-color: transparent;
+  outline: none;
+}
+button {
+  cursor: pointer;
+  background-color: transparent;
+  outline: none;
+  border: 0;
+}
+body {
+  min-height: 100vh;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1;
+  font-family: "Plus Jakarta Sans";
+}
+
+.textTitle {
+  font-family: "Anton";
+  letter-spacing: 3px;
+}
+
+@layer utilities {
+  .hover-bg-slide {
+    position: relative;
+    overflow: hidden;
+  }
+  .hover-bg-slide::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background-color: #cfcfd1; /* Màu nền khi hover */
+    transition: left 0.5s ease-in-out;
+  }
+  .hover-bg-slide:hover::before {
+    left: 0;
+  }
+  .hover-line-slide {
+    position: relative;
+    overflow: hidden;
+  }
+  .hover-line-slide::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    transition: left 0.5s ease-in-out;
+    border-bottom: 2px solid black;
+  }
+  .hover-line-slide:hover::before {
+    left: 0;
+  }
+
+  .accordion-content {
+    overflow: hidden;
+    max-height: 0;
+  }
+
+  .accordion-content-open {
+    max-height: 500px;
+  }
+}
+
+.scrollBar-custom::-webkit-scrollbar {
+  width: 7px;
+  background-color: rgba(0, 0, 0, 0.185);
+  padding: 10px;
+}
+
+.scrollBar-custom::-webkit-scrollbar-thumb {
+  background-color: black;
+}
+
+.heightContent {
+  height: calc(100vh - 70px);
+}
