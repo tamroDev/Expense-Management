@@ -10,7 +10,7 @@ const listSideBar = [
     id: 2,
     title: "Expense",
     icon: "fa-solid fa-dollar-sign",
-    path: "/cc",
+    path: "/expense",
     currently: false,
   },
   {

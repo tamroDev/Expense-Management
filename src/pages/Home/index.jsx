@@ -1,7 +1,9 @@
+// import { useState } from "react";
+
 import MyCalendar from "./components/Calendar";
 import ScrollBar from "../../layouts/components/ScrollBar";
 import OverviewHome from "./components/OverviewHome";
-import Chart from "../../components/Chart/Chart";
+import TableHome from "./components/TableHome";
 
 function Home() {
   return (
@@ -12,7 +14,7 @@ function Home() {
 
       <ScrollBar flex={"40%"}>
         <MyCalendar />
-        <Chart />
+        <TableHome />
       </ScrollBar>
     </div>
   );

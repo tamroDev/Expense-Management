@@ -3,6 +3,7 @@ import DefaultLayout from "../layouts/DefaultLayout";
 // Pages
 import ErrorPage from "../pages/Error/error-page";
 import Home from "../pages/Home";
+import Expense from "../pages/Expense";
 
 const PublicRoutes = createBrowserRouter([
   {
@@ -15,8 +16,8 @@ const PublicRoutes = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/nin",
-        element: <div>Trang Nin</div>,
+        path: "/expense",
+        element: <Expense />,
       },
     ],
   },

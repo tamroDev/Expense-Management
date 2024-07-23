@@ -6,7 +6,7 @@ function DefaultLayout() {
     <div className="flex">
       <Header />
       <SideBar />
-      <div className="flex-[85%] heightContent mt-[70px] px-[10px] bg-[#f3f4f6]">
+      <div className="flex-[85%] heightContent mt-[70px] px-[10px] bg-[#fbf7f4]">
         <Outlet />
       </div>
     </div>
