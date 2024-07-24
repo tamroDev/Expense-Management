@@ -103,3 +103,17 @@ body {
 .heightContent {
   height: calc(100vh - 70px);
 }
+
+.customBg1 {
+  background-image: url("https://cdn-icons-png.flaticon.com/512/1378/1378571.png");
+  background-position: 70%;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.customBg2 {
+  background-image: url("https://cdn-icons-png.flaticon.com/512/5427/5427112.png");
+  background-position: 70%;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
