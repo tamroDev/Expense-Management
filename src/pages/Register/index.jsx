@@ -1,97 +1,74 @@
-function Register() {
+/* eslint-disable react/no-unescaped-entities */
+import { Link } from "react-router-dom";
+import MoneyLogo from "../../assets/monye.png";
+import SignUpSocial from "../Login/components/signupSocialGroup";
+import InputComponent from "../../components/InputComponent";
+import ButtonLogin from "../Login/components/ButtonLogin";
+
+function Login() {
   return (
-    <div className="flex flex-col justify-center font-[sans-serif] sm:h-screen p-4">
-      <div className="max-w-md w-full mx-auto border border-gray-300 rounded-2xl p-8">
-        <div className="text-center mb-12">
-          <a href="javascript:void(0)">
-            <img
-              src="https://readymadeui.com/readymadeui.svg"
-              alt="logo"
-              className="w-40 inline-block"
-            />
-          </a>
+    <div className="min-h-screen w-full bg-gray-100 text-gray-900 flex justify-center ">
+      <div className="max-w-screen-xl m-0 sm:m-1 bg-white shadow sm:rounded-lg flex justify-center flex-1 relative">
+        <div className="absolute top-2 left-2 flex justify-between items-center gap-5">
+          <Link
+            to="/login"
+            className="font-[700] text-[22px] hover-line-slide pb-2"
+          >
+            Sign in
+          </Link>
+          <div className="w-[2px] h-[20px] bg-black "></div>
+          <Link
+            to="/register"
+            className="font-[700] text-[22px] pb-2 hover-line-slide "
+          >
+            Sign up
+          </Link>
         </div>
-
-        <form>
-          <div className="space-y-6">
-            <div>
-              <label className="text-gray-800 text-sm mb-2 block">
-                Email Id
-              </label>
-              <input
-                name="email"
-                type="text"
-                className="text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
-                placeholder="Enter email"
-              />
-            </div>
-            <div>
-              <label className="text-gray-800 text-sm mb-2 block">
-                Password
-              </label>
-              <input
-                name="password"
-                type="password"
-                className="text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
-                placeholder="Enter password"
-              />
-            </div>
-            <div>
-              <label className="text-gray-800 text-sm mb-2 block">
-                Confirm Password
-              </label>
-              <input
-                name="cpassword"
-                type="password"
-                className="text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
-                placeholder="Enter confirm password"
-              />
-            </div>
-
-            <div className="flex items-center">
-              <input
-                id="remember-me"
-                name="remember-me"
-                type="checkbox"
-                className="h-4 w-4 shrink-0 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-              />
-              <label
-                // eslint-disable-next-line react/no-unknown-property
-                for="remember-me"
-                className="text-gray-800 ml-3 block text-sm"
-              >
-                I accept the{" "}
-                <a
-                  href="javascript:void(0);"
-                  className="text-blue-600 font-semibold hover:underline ml-1"
-                >
-                  Terms and Conditions
-                </a>
-              </label>
+        <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
+          <div className="flex justify-center items-center gap-3 mt-4">
+            <img src={MoneyLogo} className="w-max h-16 object-contain" />
+            <h1 className="font-[700]">Expense Manage</h1>
+          </div>
+          <div className="mt-12 flex flex-col items-center">
+            <h1 className="text-2xl xl:text-3xl font-extrabold">Sign up</h1>
+            <div className="w-full flex-1 mt-6">
+              <SignUpSocial />
+              <div className="my-12 border-b text-center">
+                <div className="leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform translate-y-1/2">
+                  Or sign up with e-mail
+                </div>
+              </div>
+              <div className="mx-auto max-w-xs">
+                <InputComponent id={"email"} name={"email"} des={"Email ..."} />
+                <InputComponent
+                  id={"password"}
+                  name={"password"}
+                  type={"password"}
+                  des={"Password ..."}
+                />
+                <InputComponent
+                  id={"re-password"}
+                  name={"re-password"}
+                  type={"password"}
+                  des={"Password confirm ..."}
+                />
+                <ButtonLogin signup />
+              </div>
             </div>
           </div>
-
-          <div className="!mt-12">
-            <button
-              type="button"
-              className="w-full py-3 px-4 text-sm tracking-wider font-semibold rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none"
-            >
-              Create an account
-            </button>
-          </div>
-          <p className="text-gray-800 text-sm mt-6 text-center">
-            Already have an account?{" "}
-            <a
-              href="javascript:void(0);"
-              className="text-blue-600 font-semibold hover:underline ml-1"
-            >
-              Login here
-            </a>
-          </p>
-        </form>
+        </div>
+        <div className="flex-1 bg-indigo-100 text-center hidden lg:flex">
+          <div
+            className="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat"
+            style={{
+              backgroundImage:
+                "url('https://storage.googleapis.com/devitary-image-host.appspot.com/15848031292911696601-undraw_designer_life_w96d.svg')",
+            }}
+          ></div>
+        </div>
       </div>
     </div>
   );
 }
 
-export default Register;
+export default Login;

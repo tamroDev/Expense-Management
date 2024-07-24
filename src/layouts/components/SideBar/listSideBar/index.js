@@ -17,7 +17,7 @@ const listSideBar = [
     id: 3,
     title: "Revenue",
     icon: "fa-solid fa-money-bill-trend-up",
-    path: "/",
+    path: "/revenu",
     currently: false,
   },
   {

@@ -1,21 +1,19 @@
 import { useRef, useEffect, createRef, useState } from "react";
 import clsx from "clsx";
 import styles from "./Expense.module.scss";
-// import { useNavigate } from "react-router-dom";
 import SpendingItem from "../../components/SpendingItem";
 import InputComponent from "../../components/InputComponent";
-import { settingSpending } from "./settingExpense";
+import { settingRevenu } from "./settingRevenu";
 
-function Expense() {
+function Revenu() {
   const [budget, setBudget] = useState();
   const [month, setMonth] = useState(1);
-  const [dateEnd, setDateEnd] = useState();
   const [description, setDesciption] = useState();
   const [category, setCategory] = useState();
   const itemRef = useRef([]);
 
-  if (itemRef.current.length !== settingSpending.length) {
-    itemRef.current = Array(settingSpending.length)
+  if (itemRef.current.length !== settingRevenu.length) {
+    itemRef.current = Array(settingRevenu.length)
       .fill()
       .map((_, i) => itemRef.current[i] || createRef());
   }
@@ -41,7 +39,6 @@ function Expense() {
     const formData = {
       budget,
       month,
-      dateEnd,
       description,
       category,
     };
@@ -53,7 +50,6 @@ function Expense() {
 
     setBudget("");
     setMonth(1);
-    setDateEnd("");
     setDesciption("");
     setCategory("");
   };
@@ -67,10 +63,10 @@ function Expense() {
       )}
     >
       <div className="textTitle text-[25px] text-red-500 text-center h-[70px] leading-[70px]">
-        Create spending
+        Create Revenu
       </div>
-      <div className="flex gap-5 mb-10 border-b pb-4">
-        <div className="w-full flex gap-3">
+      <div className="flex gap-5 mb-10 border-b pb-4 w-[40%]">
+        <div className="w-full flex gap-3 flex-wrap flex-auto justify-start">
           <InputComponent
             value={budget}
             change={setBudget}
@@ -85,13 +81,6 @@ function Expense() {
             label={"Month:"}
           />
           <InputComponent
-            value={dateEnd}
-            change={setDateEnd}
-            replication
-            type={"date"}
-            label={"Date End: "}
-          />
-          <InputComponent
             value={description}
             change={setDesciption}
             label={"Description:"}
@@ -99,11 +88,11 @@ function Expense() {
           />
         </div>
       </div>
-      <div className="text-[20px] font-[700] text-left  w-[60%] mb-5">
+      <div className="text-[20px] font-[700] text-left  w-[40%] mb-5">
         List Service:
       </div>
-      <div className="flex flex-auto max-w-[60%] flex-wrap gap-4 border-b pb-5">
-        {settingSpending.map((item, index) => (
+      <div className="flex max-w-[40%] w-[40%] flex-wrap gap-4 border-b pb-5 h-max">
+        {settingRevenu.map((item, index) => (
           <SpendingItem
             ref={(el) => (itemRef.current[index] = el)}
             key={item.id}
@@ -114,7 +103,7 @@ function Expense() {
           />
         ))}
       </div>
-      <div className="mt-[20px] flex gap-3 w-[55%]">
+      <div className="mt-[20px] flex gap-3 w-[40%]">
         <button
           type="submit"
           className="p-4 bg-blue-500 text-white font-[600] text-[12px] uppercase rounded-2xl "
@@ -132,4 +121,4 @@ function Expense() {
   );
 }
 
-export default Expense;
+export default Revenu;

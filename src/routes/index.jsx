@@ -5,6 +5,7 @@ import LoginLayout from "../layouts/LoginLayout";
 import ErrorPage from "../pages/Error/error-page";
 import Home from "../pages/Home";
 import Expense from "../pages/Expense";
+import Revenu from "../pages/Revenu";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 
@@ -20,6 +21,10 @@ const PublicRoutes = createBrowserRouter([
       {
         path: "/expense",
         element: <Expense />,
+      },
+      {
+        path: "/revenu",
+        element: <Revenu />,
       },
     ],
   },
