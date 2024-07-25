@@ -42,8 +42,8 @@ const ChartPie = () => {
 
   return (
     <div className="row">
-      <div className="mixed-chart font-[700] p-3 max-w-[500px]">
-        <Chart options={options} series={series} type="pie" width="500" />
+      <div className="mixed-chart font-[700] p-3 max-w-[450px]">
+        <Chart options={options} series={series} type="pie" width="450" />
       </div>
     </div>
   );

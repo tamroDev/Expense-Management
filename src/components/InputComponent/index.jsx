@@ -4,7 +4,7 @@ function InputComponent({ des, id, label, name, type, value, change }) {
     change(e.target.value);
   };
   return (
-    <div>
+    <div className="flex-auto">
       <label
         htmlFor={id}
         className="text-gray-800 font-bold text-sm mb-2 block"

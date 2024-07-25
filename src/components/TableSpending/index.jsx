@@ -1,10 +1,11 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-unescaped-entities */
 import { Link } from "react-router-dom";
+
 function TableHome({ table, data }) {
   return (
-    <div className="relative overflow-x-auto">
-      <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+    <div className="relative w-[100%] ">
+      <table className="text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         {table === 1 ? <TheadRevenue /> : <TheadSpend />}
         <tbody>
           {data.map((item) => (

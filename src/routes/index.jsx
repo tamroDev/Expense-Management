@@ -8,6 +8,8 @@ import Expense from "../pages/Expense";
 import Revenu from "../pages/Revenu";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import Statistics from "../pages/Statistics";
+import FinancialReport from "../pages/report";
 
 const PublicRoutes = createBrowserRouter([
   {
@@ -25,6 +27,14 @@ const PublicRoutes = createBrowserRouter([
       {
         path: "/revenu",
         element: <Revenu />,
+      },
+      {
+        path: "/statistics",
+        element: <Statistics />,
+      },
+      {
+        path: "/report",
+        element: <FinancialReport />,
       },
     ],
   },

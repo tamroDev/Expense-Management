@@ -117,3 +117,19 @@ body {
   background-repeat: no-repeat;
   background-size: contain;
 }
+
+.custom-scrollbar {
+  &::-webkit-scrollbar {
+    @apply w-2.5 rounded-2xl;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @apply bg-black rounded-2xl;
+  }
+}
+
+.flexCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

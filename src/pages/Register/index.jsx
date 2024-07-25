@@ -29,9 +29,9 @@ function Login() {
             <img src={MoneyLogo} className="w-max h-16 object-contain" />
             <h1 className="font-[700]">Expense Manage</h1>
           </div>
-          <div className="mt-12 flex flex-col items-center">
+          <div className="mt-7 flex flex-col items-center">
             <h1 className="text-2xl xl:text-3xl font-extrabold">Sign up</h1>
-            <div className="w-full flex-1 mt-6">
+            <div className="w-full flex-1 mt-2">
               <SignUpSocial />
               <div className="my-12 border-b text-center">
                 <div className="leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform translate-y-1/2">

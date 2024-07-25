@@ -30,4 +30,9 @@ export const settingSpending = [
     name: "Entertainment",
     src: "https://i.pinimg.com/736x/a0/e4/c9/a0e4c951f7aed47baf6e3549f3dce24b.jpg",
   },
+  {
+    id: 7,
+    name: "More",
+    src: "https://i.pinimg.com/564x/4a/a1/b0/4aa1b05b25a687d05bc807a13410b6e5.jpg",
+  },
 ];

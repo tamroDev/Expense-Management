@@ -1,10 +1,8 @@
 import { useRef, useEffect, createRef, useState } from "react";
-import clsx from "clsx";
-import styles from "./Expense.module.scss";
-// import { useNavigate } from "react-router-dom";
 import SpendingItem from "../../components/SpendingItem";
 import InputComponent from "../../components/InputComponent";
 import { settingSpending } from "./settingExpense";
+import ButtonGroup from "./components/ButtonGroup";
 
 function Expense() {
   const [budget, setBudget] = useState();
@@ -61,16 +59,15 @@ function Expense() {
   return (
     <form
       onSubmit={handleSubmit}
-      className={clsx(
-        '"w-full h-full bg-white rounded-2xl flex justify-start items-center flex-col',
-        styles.container
-      )}
+      className={
+        "w-full h-full bg-white rounded-2xl flex justify-start items-center flex-col overflow-auto pd-[40px] custom-scrollbar"
+      }
     >
       <div className="textTitle text-[25px] text-red-500 text-center h-[70px] leading-[70px]">
         Create spending
       </div>
-      <div className="flex gap-5 mb-10 border-b pb-4">
-        <div className="w-full flex gap-3">
+      <div className="flex gap-5 mb-10 border-b pb-4 w-[70%]">
+        <div className="w-full flex gap-3 flex-wrap flex-auto justify-start">
           <InputComponent
             value={budget}
             change={setBudget}
@@ -99,10 +96,10 @@ function Expense() {
           />
         </div>
       </div>
-      <div className="text-[20px] font-[700] text-left  w-[60%] mb-5">
+      <div className="text-[20px] font-[700] text-left  w-[70%] mb-5">
         List Service:
       </div>
-      <div className="flex flex-auto max-w-[60%] flex-wrap gap-4 border-b pb-5">
+      <div className="flex max-w-[70%] w-[70%] flex-wrap gap-4 border-b pb-5 h-max">
         {settingSpending.map((item, index) => (
           <SpendingItem
             ref={(el) => (itemRef.current[index] = el)}
@@ -114,20 +111,7 @@ function Expense() {
           />
         ))}
       </div>
-      <div className="mt-[20px] flex gap-3 w-[55%]">
-        <button
-          type="submit"
-          className="p-4 bg-blue-500 text-white font-[600] text-[12px] uppercase rounded-2xl "
-        >
-          Create
-        </button>
-        <button
-          onClick={handleRetype}
-          className="p-4 bg-red-600 text-white font-[600] text-[12px] uppercase rounded-2xl"
-        >
-          Retype
-        </button>
-      </div>
+      <ButtonGroup handleRetype={handleRetype} />
     </form>
   );
 }

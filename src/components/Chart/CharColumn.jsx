@@ -50,13 +50,13 @@ const BarChart = () => {
 
   return (
     <div className="row">
-      <div className="mixed-chart font-[700] p-3 max-w-[500px]">
+      <div className="mixed-chart font-[700] p-3 max-w-[450px]">
         <ApexCharts
           options={options}
           series={series}
           type="bar"
           height={350}
-          width={500}
+          width={450}
         />
       </div>
     </div>
