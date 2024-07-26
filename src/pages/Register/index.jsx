@@ -1,8 +1,14 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
+import { toast } from "react-toastify";
+
+// Import Service
+import { createAccount } from "../../service/auth.js";
+import "react-toastify/dist/ReactToastify.css";
+
 // Components
 import MoneyLogo from "../../assets/monye.png";
 import SignUpSocial from "../Login/components/signupSocialGroup";
@@ -27,9 +33,14 @@ const schema = yup.object().shape({
     .string()
     .trim()
     .required("Password cannot be blank!")
+    .oneOf(
+      [yup.ref("password"), null],
+      "The confirmation password must match the entered password !"
+    )
     .min(8, "Password must not be less than 8 characters!"),
 });
 function Login() {
+  const navigate = new useNavigate();
   const {
     handleSubmit,
     register,
@@ -37,9 +48,18 @@ function Login() {
     reset,
   } = useForm({ resolver: yupResolver(schema) });
 
-  const handleSignUp = async (data) => {
-    console.log(data);
-    reset();
+  const handleSignUp = async (values) => {
+    try {
+      const { ConfirmPassword, ...newAccount } = values;
+      await createAccount(newAccount);
+      toast.success(
+        "Account created successfully, check your email and please verify your account !"
+      );
+      reset();
+      navigate("/login");
+    } catch (error) {
+      toast.error("error");
+    }
   };
 
   return (

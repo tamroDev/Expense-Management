@@ -1,6 +1,5 @@
 import { Header, SideBar } from "../components";
 import { Outlet } from "react-router-dom";
-
 function DefaultLayout() {
   return (
     <div className="flex">
