@@ -1,14 +1,50 @@
 /* eslint-disable react/no-unescaped-entities */
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Link } from "react-router-dom";
+import * as yup from "yup";
+// Components
 import MoneyLogo from "../../assets/monye.png";
 import SignUpSocial from "../Login/components/signupSocialGroup";
 import InputComponent from "../../components/InputComponent";
 import ButtonLogin from "../Login/components/ButtonLogin";
 
+const schema = yup.object().shape({
+  email: yup
+    .string()
+    .trim()
+    .required("Email cannot be blank!")
+    .matches(
+      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+      "Email format is incorrect!"
+    ),
+  password: yup
+    .string()
+    .trim()
+    .required("Password cannot be blank!")
+    .min(8, "Password must not be less than 8 characters!"),
+  ConfirmPassword: yup
+    .string()
+    .trim()
+    .required("Password cannot be blank!")
+    .min(8, "Password must not be less than 8 characters!"),
+});
 function Login() {
+  const {
+    handleSubmit,
+    register,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm({ resolver: yupResolver(schema) });
+
+  const handleSignUp = async (data) => {
+    console.log(data);
+    reset();
+  };
+
   return (
-    <div className="min-h-screen w-full bg-gray-100 text-gray-900 flex justify-center ">
-      <div className="max-w-screen-xl m-0 sm:m-1 bg-white shadow sm:rounded-lg flex justify-center flex-1 relative">
+    <div className="w-full bg-gray-100 text-gray-900 flex justify-center ">
+      <div className="max-w-screen-xl m-0 sm:m-1 bg-white shadow sm:rounded-lg flex justify-center w-full relative overflow-auto">
         <div className="absolute top-2 left-2 flex justify-between items-center gap-5">
           <Link
             to="/login"
@@ -38,22 +74,56 @@ function Login() {
                   Or sign up with e-mail
                 </div>
               </div>
-              <div className="mx-auto max-w-xs">
-                <InputComponent id={"email"} name={"email"} des={"Email ..."} />
-                <InputComponent
-                  id={"password"}
-                  name={"password"}
-                  type={"password"}
-                  des={"Password ..."}
-                />
-                <InputComponent
-                  id={"re-password"}
-                  name={"re-password"}
-                  type={"password"}
-                  des={"Password confirm ..."}
-                />
-                <ButtonLogin signup />
-              </div>
+              <form
+                className="mx-auto max-w-xs overflow-auto max-h-[500px]"
+                onSubmit={handleSubmit(handleSignUp)}
+              >
+                <div>
+                  <InputComponent
+                    errors={errors}
+                    register={register}
+                    id={"email"}
+                    name={"email"}
+                    des={"Email ..."}
+                  />
+                  {errors.email && (
+                    <p className="text-red-500 text-sm">
+                      {errors.email.message}
+                    </p>
+                  )}
+                </div>
+                <div>
+                  <InputComponent
+                    errors={errors}
+                    register={register}
+                    id={"password"}
+                    name={"password"}
+                    type={"password"}
+                    des={"Password ..."}
+                  />
+                  {errors.password && (
+                    <p className="text-red-500 text-sm">
+                      {errors.password.message}
+                    </p>
+                  )}
+                </div>
+                <div>
+                  <InputComponent
+                    errors={errors}
+                    register={register}
+                    id={"re-password"}
+                    name={"ConfirmPassword"}
+                    type={"password"}
+                    des={"Password confirm ..."}
+                  />
+                  {errors.ConfirmPassword && (
+                    <p className="text-red-500 text-sm">
+                      {errors.ConfirmPassword.message}
+                    </p>
+                  )}
+                </div>
+                <ButtonLogin signup isLoading={isSubmitting} />
+              </form>
             </div>
           </div>
         </div>

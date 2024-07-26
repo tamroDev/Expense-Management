@@ -1,14 +1,53 @@
 /* eslint-disable react/no-unescaped-entities */
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Link } from "react-router-dom";
+import * as yup from "yup";
+
+// components
 import MoneyLogo from "../../assets/monye.png";
 import InputGroup from "./components/InputGroup";
 import SignUpSocial from "./components/signupSocialGroup";
 import ButtonLogin from "./components/ButtonLogin";
 import More from "./components/More";
 
+const schema = yup.object().shape({
+  email: yup
+    .string()
+    .trim()
+    .required("Email không được để trống !")
+    .matches(
+      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+      "Email không đúng định dạng !"
+    ),
+  password: yup
+    .string()
+    .trim()
+    .required("Mật khẩu không được để trống !")
+    .min(8, "Mật khẩu phải có ít nhất 8 ký tự trở lên !")
+    .matches(
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+      "Mật khẩu có ít nhất một số và một ký tự đặc biệt !"
+    ),
+});
+
 function Login() {
+  const {
+    handleSubmit,
+    register,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const handleSignIn = async (data) => {
+    console.log(data);
+    reset();
+  };
+
   return (
-    <div className="min-h-screen w-full bg-gray-100 text-gray-900 flex justify-center ">
+    <div className="min-h-[75vh] w-full bg-gray-100 text-gray-900 flex justify-center ">
       <div className="max-w-screen-xl m-0 sm:m-1 bg-white shadow sm:rounded-lg flex justify-center flex-1 relative">
         <div className="absolute top-2 left-2 flex justify-between items-center gap-5">
           <Link
@@ -39,10 +78,13 @@ function Login() {
                   Or sign up with e-mail
                 </div>
               </div>
-              <div className="mx-auto max-w-xs">
-                <InputGroup />
-                <ButtonLogin />
-              </div>
+              <form
+                className="mx-auto max-w-xs"
+                onSubmit={handleSubmit(handleSignIn)}
+              >
+                <InputGroup register={register} errors={errors} />
+                <ButtonLogin isLoading={isSubmitting} />
+              </form>
               <More />
             </div>
           </div>

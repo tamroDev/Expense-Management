@@ -1,20 +1,32 @@
 import InputComponent from "../../../../components/InputComponent";
 
-function InputGroup() {
+function InputGroup({ register, errors }) {
   return (
     <>
-      <InputComponent
-        name={"email"}
-        type={"email"}
-        id={"email"}
-        des={"Email ..."}
-      />
-      <InputComponent
-        name={"pasword"}
-        type={"pasword"}
-        id={"pasword"}
-        des={"Password ..."}
-      />
+      <div>
+        <InputComponent
+          name="email"
+          type="email"
+          id="email"
+          des="Email ..."
+          register={register}
+        />
+        {errors.email && (
+          <p className="text-red-500 text-sm">{errors.email.message}</p>
+        )}
+      </div>
+      <div>
+        <InputComponent
+          name="password"
+          type="password"
+          id="password"
+          des="Password ..."
+          register={register}
+        />
+        {errors.password && (
+          <p className="text-red-500 text-sm">{errors.password.message}</p>
+        )}
+      </div>
     </>
   );
 }
