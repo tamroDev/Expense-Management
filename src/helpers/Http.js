@@ -25,10 +25,9 @@ class Http {
       }
     );
 
-    // Add a response interceptor
     this.api.interceptors.response.use(
       function (response) {
-        return response.data;
+        return response; // Trả về toàn bộ phản hồi
       },
       function (error) {
         return Promise.reject(error);
@@ -41,7 +40,7 @@ class Http {
       const response = await this.api.get(url, config);
       return response.data;
     } catch (error) {
-      return error.response.data;
+      return this.handleError(error);
     }
   }
 
@@ -50,12 +49,7 @@ class Http {
       const response = await this.api.post(url, data, config);
       return response.data;
     } catch (error) {
-      if (error.response.data.message === "The email has already been taken.") {
-        return toast.error(
-          "Account creation failed, email already exists in the system !"
-        );
-      }
-      return error.response.data;
+      return this.handleError(error);
     }
   }
 
@@ -64,7 +58,7 @@ class Http {
       const response = await this.api.put(url, data, config);
       return response.data;
     } catch (error) {
-      return error.response.data;
+      return this.handleError(error);
     }
   }
 
@@ -73,7 +67,7 @@ class Http {
       const response = await this.api.patch(url, data, config);
       return response.data;
     } catch (error) {
-      return error.response.data;
+      return this.handleError(error);
     }
   }
 
@@ -82,7 +76,25 @@ class Http {
       const response = await this.api.delete(url);
       return response.data;
     } catch (error) {
+      return this.handleError(error);
+    }
+  }
+
+  handleError(error) {
+    if (error.response && error.response.data) {
+      if (error.response.data.message === "The email has already been taken.") {
+        toast.error(
+          "Account creation failed, email already exists in the system!"
+        );
+      } else {
+        toast.error(
+          `Error: ${error.response.data.message || "An error occurred!"}`
+        );
+      }
       return error.response.data;
+    } else {
+      toast.error("An unexpected error occurred!");
+      return { message: "An unexpected error occurred!" };
     }
   }
 }

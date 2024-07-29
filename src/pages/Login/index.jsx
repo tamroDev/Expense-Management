@@ -4,6 +4,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Link } from "react-router-dom";
 import * as yup from "yup";
 
+import { loginAccount } from "../../service/auth";
+
 // components
 import MoneyLogo from "../../assets/monye.png";
 import InputGroup from "./components/InputGroup";
@@ -24,11 +26,7 @@ const schema = yup.object().shape({
     .string()
     .trim()
     .required("Mật khẩu không được để trống !")
-    .min(8, "Mật khẩu phải có ít nhất 8 ký tự trở lên !")
-    .matches(
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-      "Mật khẩu có ít nhất một số và một ký tự đặc biệt !"
-    ),
+    .min(8, "Mật khẩu phải có ít nhất 8 ký tự trở lên !"),
 });
 
 function Login() {
@@ -41,9 +39,14 @@ function Login() {
     resolver: yupResolver(schema),
   });
 
-  const handleSignIn = async (data) => {
-    console.log(data);
-    reset();
+  const handleSignIn = async (values) => {
+    try {
+      const data = await loginAccount(values);
+      console.log(data);
+      reset();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
