@@ -27,8 +27,9 @@ class Http {
 
     this.api.interceptors.response.use(
       function (response) {
-        return response; // Trả về toàn bộ phản hồi
+        return response;
       },
+
       function (error) {
         return Promise.reject(error);
       }
