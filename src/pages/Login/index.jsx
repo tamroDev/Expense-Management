@@ -1,11 +1,12 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
+import { useDispatch } from "react-redux";
 
-import { loginAccount } from "../../service/auth";
-
+// Action Redux
+import { login } from "../../redux/reduxSlices/accountSlice";
 // components
 import MoneyLogo from "../../assets/monye.png";
 import InputGroup from "./components/InputGroup";
@@ -30,6 +31,8 @@ const schema = yup.object().shape({
 });
 
 function Login() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const {
     handleSubmit,
     register,
@@ -41,11 +44,12 @@ function Login() {
 
   const handleSignIn = async (values) => {
     try {
-      const data = await loginAccount(values);
-      console.log(data);
-      reset();
+      await dispatch(login(values)).unwrap();
+      navigate("/");
     } catch (error) {
-      console.log(error);
+      console.error("Failed to login:", error);
+    } finally {
+      reset();
     }
   };
 

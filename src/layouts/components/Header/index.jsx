@@ -16,7 +16,7 @@ const Header = () => {
       <Logo logo={logo} />
       <div className="flex-[85%] h-[70px] flex">
         <Search />
-        <UserInfo user={user} name="B.Tâm" />
+        <UserInfo user={user} />
       </div>
     </header>
   );

@@ -6,6 +6,8 @@ const http = new Http();
 export const createAccount = async (newAccount) => {
   try {
     const data = await http.post("/auth/register", newAccount);
+    console.log(data);
+
     return data;
   } catch (error) {
     if (error.response && error.response.data) {
@@ -32,7 +34,16 @@ export const loginAccount = async (account) => {
     } else {
       toast.error("An unexpected error occurred!");
     }
-    console.log(error);
     throw error; // Ném lại lỗi nếu cần để xử lý ở nơi gọi hàm
+  }
+};
+
+export const getUserDetails = async () => {
+  try {
+    const data = await http.get("/auth/me");
+    return data;
+  } catch (error) {
+    console.error("Error fetching user details", error);
+    throw error;
   }
 };

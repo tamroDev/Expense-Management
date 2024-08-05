@@ -14,7 +14,8 @@ class Http {
     // Add a request interceptor
     this.api.interceptors.request.use(
       function (config) {
-        const token = Cookies.get("token");
+        const token = Cookies.get("accessToken");
+
         if (token) {
           config.headers["Authorization"] = `Bearer ${token}`;
         }
@@ -26,11 +27,36 @@ class Http {
     );
 
     this.api.interceptors.response.use(
-      function (response) {
-        return response;
-      },
+      (response) => response,
+      async (error) => {
+        const originalRequest = error.config;
 
-      function (error) {
+        if (error.response && error.response.status === 403) {
+          const refreshToken = Cookies.get("refreshToken");
+
+          if (refreshToken) {
+            try {
+              // Attempt to refresh the access token
+              const { data } = await axios.post(`${API_URL}auth/refreshToken`, {
+                refreshToken,
+              });
+
+              // Save the new access token and retry the original request
+              Cookies.set("refreshToken", data.refreshToken);
+              Cookies.set("accessToken", data.accessToken);
+              originalRequest.headers[
+                "Authorization"
+              ] = `Bearer ${data.accessToken}`;
+              return this.api(originalRequest);
+            } catch (refreshError) {
+              toast.error("Session expired. Please log in again.");
+              Cookies.remove("accessToken");
+              Cookies.remove("refreshToken");
+              // Optionally redirect to login page
+              return Promise.reject(refreshError);
+            }
+          }
+        }
         return Promise.reject(error);
       }
     );

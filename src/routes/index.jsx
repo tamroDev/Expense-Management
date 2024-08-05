@@ -1,6 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import DefaultLayout from "../layouts/DefaultLayout";
 import LoginLayout from "../layouts/LoginLayout";
+import ProtecredRoute from "./ProtectedRoute/ProtectedRoute ";
+import RedirectIfLoggedIn from "./RedirectIfLoggedIn/RedirectIfLoggedIn";
 // Pages
 import ErrorPage from "../pages/Error/error-page";
 import Home from "../pages/Home";
@@ -10,6 +12,7 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Statistics from "../pages/Statistics";
 import FinancialReport from "../pages/report";
+import UserProfile from "../pages/Profile";
 
 const PublicRoutes = createBrowserRouter([
   {
@@ -18,23 +21,27 @@ const PublicRoutes = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: <ProtecredRoute element={<Home />} />,
       },
       {
         path: "/expense",
-        element: <Expense />,
+        element: <ProtecredRoute element={<Expense />} />,
       },
       {
         path: "/revenu",
-        element: <Revenu />,
+        element: <ProtecredRoute element={<Revenu />} />,
       },
       {
         path: "/statistics",
-        element: <Statistics />,
+        element: <ProtecredRoute element={<Statistics />} />,
       },
       {
         path: "/report",
-        element: <FinancialReport />,
+        element: <ProtecredRoute element={<FinancialReport />} />,
+      },
+      {
+        path: "/profile",
+        element: <ProtecredRoute element={<UserProfile />} />,
       },
     ],
   },
@@ -44,15 +51,14 @@ const PublicRoutes = createBrowserRouter([
     children: [
       {
         path: "/login",
-        element: <Login />,
+        element: <RedirectIfLoggedIn element={<Login />} />,
       },
       {
         path: "/register",
-        element: <Register />,
+        element: <RedirectIfLoggedIn element={<Register />} />,
       },
     ],
   },
 ]);
-const PrivateRoutes = [];
 
-export { PublicRoutes, PrivateRoutes };
+export { PublicRoutes };

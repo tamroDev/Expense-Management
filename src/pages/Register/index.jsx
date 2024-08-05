@@ -1,13 +1,15 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unescaped-entities */
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
 
 // Import Service
-import { createAccount } from "../../service/auth.js";
 import "react-toastify/dist/ReactToastify.css";
+import { register as registerThunk } from "../../redux/reduxSlices/accountSlice";
 
 // Components
 import MoneyLogo from "../../assets/monye.png";
@@ -40,7 +42,8 @@ const schema = yup.object().shape({
     .min(8, "Password must not be less than 8 characters!"),
 });
 function Login() {
-  const navigate = new useNavigate();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const {
     handleSubmit,
     register,
@@ -49,19 +52,21 @@ function Login() {
   } = useForm({ resolver: yupResolver(schema) });
 
   const handleSignUp = async (values) => {
+    const { ConfirmPassword, ...oldAccount } = values;
+    const newAccount = {
+      ...oldAccount,
+      role: 1,
+    };
+
     try {
-      const { ConfirmPassword, ...newAccount } = values;
-      await createAccount(newAccount);
-      toast.success(
-        "Account created successfully, check your email and please verify your account !"
-      );
+      await dispatch(registerThunk(newAccount)).unwrap();
       reset();
       navigate("/login");
+      toast.success("Registration successful!");
     } catch (error) {
-      toast.error("error");
+      toast.error(`Registration failed: ${error.message}`);
     }
   };
-
   return (
     <div className="w-full bg-gray-100 text-gray-900 flex justify-center ">
       <div className="max-w-screen-xl m-0 sm:m-1 bg-white shadow sm:rounded-lg flex justify-center w-full relative overflow-auto">

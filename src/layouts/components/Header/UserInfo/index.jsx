@@ -1,7 +1,26 @@
 /* eslint-disable react/prop-types */
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  fetchDetailUser,
+  logout,
+} from "../../../../redux/reduxSlices/accountSlice";
+import { useEffect } from "react";
 
-function UserInfo({ user, name }) {
+function UserInfo({ user }) {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchDetailUser());
+  }, []);
+  const handleLogout = () => {
+    dispatch(logout());
+
+    navigate("/login");
+  };
+
+  const { userDetails } = useSelector((state) => state.auth);
+
   return (
     <div className="w-[25%] flex items-center justify-center gap-5">
       <div className="flex gap-1">
@@ -18,12 +37,15 @@ function UserInfo({ user, name }) {
             alt=""
           />
         </Link>
-        <Link className="font-[600] hover:underline" to="/profile">
-          {name}
+        <Link
+          className="font-[600] hover:underline max-w-[70px] truncate"
+          to="/profile"
+        >
+          {userDetails.email}
         </Link>
-        <Link to="/login">
+        <button onClick={handleLogout}>
           <i className="fa-solid fa-right-from-bracket"></i>
-        </Link>
+        </button>
       </div>
     </div>
   );
