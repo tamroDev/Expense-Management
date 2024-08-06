@@ -1,6 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
+// import { useHistory } from "react-router-dom";
 
 export const API_URL = import.meta.env.VITE_BASE_API_URL;
 
@@ -52,8 +53,9 @@ class Http {
               toast.error("Session expired. Please log in again.");
               Cookies.remove("accessToken");
               Cookies.remove("refreshToken");
+              window.location.href = "/login";
               // Optionally redirect to login page
-              return Promise.reject(refreshError);
+              return this.handleError(refreshError);
             }
           }
         }

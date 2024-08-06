@@ -10,9 +10,11 @@ import { useEffect } from "react";
 function UserInfo({ user }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(fetchDetailUser());
   }, []);
+
   const handleLogout = () => {
     dispatch(logout());
 

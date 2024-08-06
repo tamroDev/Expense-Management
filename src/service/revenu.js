@@ -2,9 +2,9 @@ import Http from "../helpers/Http";
 import { toast } from "react-toastify";
 const http = new Http();
 
-export const createExpense = async (expense) => {
+export const createRevenu = async (revenu) => {
   try {
-    const data = await http.post("expense/create", expense);
+    const data = await http.post("revenu/create", revenu);
 
     return data;
   } catch (error) {
@@ -15,14 +15,13 @@ export const createExpense = async (expense) => {
     } else {
       toast.error("An unexpected error occurred!");
     }
-    console.log(error);
     throw error;
   }
 };
 
-export const getExpenseById = async (id) => {
+export const getRevenuById = async (id) => {
   try {
-    const data = await http.get(`expense/getExpense?idUser=${id}`);
+    const data = await http.get(`revenu/getRevenu?idUser=${id}`);
 
     return data;
   } catch (error) {
@@ -30,18 +29,18 @@ export const getExpenseById = async (id) => {
   }
 };
 
-export const deleteExpenseById = async (id) => {
+export const deleteRevenuById = async (id) => {
   try {
-    const data = await http.delete(`expense/deleteExpense?id=${id}`);
+    const data = await http.delete(`revenu/deleteRevenu?id=${id}`);
     return data;
   } catch (error) {
     console.log(error);
   }
 };
 
-export const updateExpenseById = async (id, newExpense) => {
+export const updateRevenuById = async (id, newRevenu) => {
   try {
-    const data = await http.put(`/expense/updateExpense/${id}`, newExpense);
+    const data = await http.put(`/revenu/updateRevenu/${id}`, newRevenu);
     return data;
   } catch (error) {
     console.log(error);
