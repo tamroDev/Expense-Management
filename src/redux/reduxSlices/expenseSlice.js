@@ -1,10 +1,22 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
   createExpense,
   deleteExpenseById,
   getExpenseById,
   updateExpenseById,
 } from "../../service/expense";
+import {
+  handleDelete,
+  handlePost,
+  handleFetch,
+} from "../thunk/thunkBuilder/handleBuilder";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { logout } from "./accountSlice";
+import { createFetchThunk } from "../thunk/thunkService/fetchDataThunk";
+
+export const getExpenses = createFetchThunk(
+  "expense/getExpense",
+  getExpenseById
+);
 
 export const createEX = createAsyncThunk(
   "expense/createEX",
@@ -12,18 +24,6 @@ export const createEX = createAsyncThunk(
     try {
       const data = await createExpense(expense);
 
-      return data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
-    }
-  }
-);
-
-export const getExpenses = createAsyncThunk(
-  "expense/getExpense",
-  async (id, thunkAPI) => {
-    try {
-      const data = await getExpenseById(id);
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -66,44 +66,17 @@ const expenseSlice = createSlice({
   },
   reducers: {},
   extraReducers: (builder) => {
+    handleFetch(builder, getExpenses, (state, action) => {
+      state.expenseList = action.payload;
+    });
+    handlePost(builder, createEX);
+    handleDelete(builder, deleteExpense, (state, action) => {
+      state.expenseList = state.expenseList.filter(
+        (expense) => expense._id !== action.payload.id
+      );
+    });
+
     builder
-      // Create
-      .addCase(createEX.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(createEX.fulfilled, (state) => {
-        state.status = "succeeded";
-      })
-      .addCase(createEX.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.payload.message;
-      })
-      // GET
-      .addCase(getExpenses.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(getExpenses.fulfilled, (state, action) => {
-        state.status = "succeeded";
-        state.expenseList = action.payload;
-      })
-      .addCase(getExpenses.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.payload.message;
-      })
-      // GET
-      .addCase(deleteExpense.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(deleteExpense.fulfilled, (state, action) => {
-        state.status = "succeeded";
-        state.expenseList = state.expenseList.filter(
-          (expense) => expense._id !== action.payload.id
-        );
-      })
-      .addCase(deleteExpense.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.payload.message;
-      })
       // UPDATE
       .addCase(updateExpense.pending, (state) => {
         state.status = "loading";
@@ -120,6 +93,11 @@ const expenseSlice = createSlice({
       .addCase(updateExpense.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload.message;
+      })
+      .addCase(logout, (state) => {
+        state.expenseList = [];
+        state.status = "idle";
+        state.error = null;
       });
   },
 });

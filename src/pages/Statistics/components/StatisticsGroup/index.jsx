@@ -1,135 +1,62 @@
 import { Link } from "react-router-dom";
-
+import Report from "../../../report/index";
 function StatisticsGroup() {
+  // const { totalExpenses, totalRevenu } = useSelector(
+  //   (state) => state.statistic
+  // );
+
+  // console.log(totalExpenses, totalRevenu);
   return (
     <div className="w-full bg-gray-50 h-max py-8 shadow-lg">
       <div className="w-50% m-auto h-max text-center font-bold uppercase mt-3 text-red-500 text-[30px] textTitle tracking-widest mb-10">
         Statistical
       </div>
       <div className="w-full flex flex-auto flex-wrap p-3 justify-center gap-2">
-        <div className="w-[47%] bg-white">
-          <h1 className="text-center text-[20px] font-bold textTitle border-b-4 border-black pb-2">
-            Last Month
-          </h1>
-          <div className="h-max flex">
-            <div className="w-[20%] h-full flex flex-col">
-              <div className="py-3 px-1 font-bold border-r-4 border-b-4 border-black bg-green-300 border-l-4">
-                Revenu
-              </div>
-              <div className="py-3 px-1 font-bold border-r-4 border-b-4 border-black bg-red-300 border-l-4">
-                Spending
-              </div>
-              <div className="py-3 px-1 font-bold border-r-4 border-b-4 border-black bg-green-300 border-l-4">
-                Surplus
-              </div>
-              <div className="py-3 px-1 font-bold border-r-4 border-b-4 border-black bg-green-300 text-nowrap text-ellipsis border-l-4">
-                Profit
-              </div>
-            </div>
-            <div className="w-[70%] h-full">
-              <div className="py-3 px-1 font-bold border-b-4 border-black text-green-500">
-                +1.000.0 $
-              </div>
-              <div className="py-3 px-1 font-bold border-b-4 border-black text-red-500">
-                -500.0 $
-              </div>
-              <div className="py-3 px-1 font-bold border-b-4 border-black text-green-500">
-                +500.0 $
-              </div>
-              <div className="py-3 px-1 font-bold border-b-4 border-black text-green-500">
-                +1.000.000.0 $
-              </div>
-            </div>
-            <div className="w-[10%] h-full">
-              <Link
-                to={"/"}
-                className="hover:bg-slate-400 hover:text-white border-l-4 border-b-4 border-black py-3 px-1 font-bold flexCenter border-r-4"
+        <Report hidden />
+        <nav aria-label="Page navigation example">
+          <ul className="list-style-none flex">
+            <li>
+              <a className="pointer-events-none relative block rounded bg-transparent px-3 py-1.5 text-sm text-surface/50 transition duration-300 dark:text-neutral-400">
+                Previous
+              </a>
+            </li>
+            <li>
+              <a
+                className="relative block rounded bg-transparent px-3 py-1.5 text-sm text-surface transition duration-300 hover:bg-neutral-100 focus:bg-neutral-100 focus:text-primary-700 focus:outline-none active:bg-neutral-100 active:text-primary-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700  dark:focus:text-primary-500 dark:active:bg-neutral-700 dark:active:text-primary-500"
+                href="#!"
               >
-                <i className="fa-regular fa-eye"></i>
-              </Link>
-              <Link
-                to={"/"}
-                className="hover:bg-slate-400 hover:text-white border-l-4 border-b-4 border-black py-3 px-1 font-bold flexCenter border-r-4"
+                1
+              </a>
+            </li>
+            <li aria-current="page">
+              <a
+                className="relative block rounded bg-primary-100 px-3 py-1.5 text-sm font-medium text-primary-700 transition duration-300 focus:outline-none dark:bg-slate-900 dark:text-primary-500"
+                href="#!"
               >
-                <i className="fa-regular fa-eye"></i>
-              </Link>
-              <Link
-                to={"/"}
-                className="hover:bg-slate-400 hover:text-white border-l-4 border-b-4 border-black py-3 px-1 font-bold flexCenter border-r-4"
+                2
+                <span className="absolute -m-px h-px w-px overflow-hidden whitespace-nowrap border-0 p-0 [clip:rect(0,0,0,0)]">
+                  (current)
+                </span>
+              </a>
+            </li>
+            <li>
+              <a
+                className="relative block rounded bg-transparent px-3 py-1.5 text-sm text-surface transition duration-300 hover:bg-neutral-100 focus:bg-neutral-100 focus:text-primary-700 focus:outline-none active:bg-neutral-100 active:text-primary-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:focus:text-primary-500 dark:active:bg-neutral-700 dark:active:text-primary-500"
+                href="#!"
               >
-                <i className="fa-regular fa-eye"></i>
-              </Link>
-              <Link
-                to={"/"}
-                className="hover:bg-slate-400 hover:text-white border-l-4 border-b-4 border-black py-3 px-1 font-bold flexCenter border-r-4"
+                3
+              </a>
+            </li>
+            <li>
+              <a
+                className="relative block rounded bg-transparent px-3 py-1.5 text-sm text-surface transition duration-300 hover:bg-neutral-100 focus:bg-neutral-100 focus:text-primary-700 focus:outline-none active:bg-neutral-100 active:text-primary-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:focus:text-primary-500 dark:active:bg-neutral-700 dark:active:text-primary-500"
+                href="#!"
               >
-                <i className="fa-regular fa-eye"></i>
-              </Link>
-            </div>
-          </div>
-        </div>
-        <div className="h-auto w-1 rounded-full bg-black"></div>
-        <div className="w-[47%] bg-white">
-          <h1 className="text-center text-[20px] font-bold textTitle border-b-4 border-black pb-2 ">
-            Currently Month
-          </h1>
-          <div className="h-max flex">
-            <div className="w-[20%] h-full">
-              <div className="py-3 px-1 font-bold border-r-4 border-b-4 border-black bg-red-300 border-l-4">
-                Revenu
-              </div>
-              <div className="py-3 px-1 font-bold border-r-4 border-b-4 border-black bg-green-300 border-l-4">
-                Spending
-              </div>
-              <div className="py-3 px-1 font-bold border-r-4 border-b-4 border-black bg-red-300 border-l-4">
-                Surplus
-              </div>
-              <div className="py-3 px-1 font-bold border-r-4 border-b-4 border-black bg-green-300 text-nowrap text-ellipsis border-l-4">
-                Profit
-              </div>
-            </div>
-            <div className="w-[70%] h-full">
-              <div className="py-3 px-1 font-bold border-b-4 border-black text-red-500">
-                +900.0 $
-              </div>
-              <div className="py-3 px-1 font-bold border-b-4 border-black text-green-500">
-                -600.0 $
-              </div>
-              <div className="py-3 px-1 font-bold border-b-4 border-black text-red-500">
-                +300.0 $
-              </div>
-              <div className="py-3 px-1 font-bold border-b-4 border-black text-green-500">
-                +1.000.000.0 $
-              </div>
-            </div>
-            <div className="w-[10%] h-full">
-              <Link
-                to={"/"}
-                className="hover:bg-slate-400 hover:text-white border-l-4 border-b-4 border-black py-3 px-1 font-bold flexCenter border-r-4"
-              >
-                <i className="fa-regular fa-eye"></i>
-              </Link>
-              <Link
-                to={"/"}
-                className="hover:bg-slate-400 hover:text-white border-l-4 border-b-4 border-black py-3 px-1 font-bold flexCenter border-r-4"
-              >
-                <i className="fa-regular fa-eye"></i>
-              </Link>
-              <Link
-                to={"/"}
-                className="hover:bg-slate-400 hover:text-white border-l-4 border-b-4 border-black py-3 px-1 font-bold flexCenter border-r-4"
-              >
-                <i className="fa-regular fa-eye"></i>
-              </Link>
-              <Link
-                to={"/"}
-                className="hover:bg-slate-400 hover:text-white border-l-4 border-b-4 border-black py-3 px-1 font-bold flexCenter border-r-4"
-              >
-                <i className="fa-regular fa-eye"></i>
-              </Link>
-            </div>
-          </div>
-        </div>
+                Next
+              </a>
+            </li>
+          </ul>
+        </nav>
       </div>
       <Link
         className="bg-blue-500 text-white px-1 py-4 flexCenter w-[12%] m-3 rounded-xl uppercase font-bold text-[12px]"

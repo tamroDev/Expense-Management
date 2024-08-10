@@ -3,7 +3,7 @@ import { useState } from "react";
 import ChartPie from "../../../../components/Chart/Chart";
 import BarChart from "../../../../components/Chart/CharColumn";
 
-function TableHome() {
+function TableHome({ totalExpenses, totalRevenu }) {
   const [isActive, setIsActive] = useState(true);
 
   return (
@@ -38,7 +38,11 @@ function TableHome() {
           <i className="fa-solid fa-chart-simple"></i> Column
         </button>
       </div>
-      {isActive ? <ChartPie /> : <BarChart />}
+      {isActive ? (
+        <ChartPie totalExpenses={totalExpenses} totalRevenu={totalRevenu} />
+      ) : (
+        <BarChart />
+      )}
     </div>
   );
 }

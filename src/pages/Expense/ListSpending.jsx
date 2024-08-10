@@ -16,7 +16,6 @@ function ListSpending() {
   const [idSpending, setId] = useState();
   const dispatch = useDispatch();
   const { _id } = useSelector((state) => state.auth.userDetails);
-  const { status } = useSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(getExpenses(_id));
@@ -44,7 +43,6 @@ function ListSpending() {
   const getId = (id) => {
     setId(id);
   };
-  console.log(status);
 
   // if (status === "loading") {
   //   return;

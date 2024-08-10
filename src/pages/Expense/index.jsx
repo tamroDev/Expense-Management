@@ -3,7 +3,7 @@ import AddExpense from "./AddSpending";
 import ListSpending from "./ListSpending";
 
 function Expense() {
-  const [showExpenses, setShowExpenses] = useState(true);
+  const [showExpenses, setShowExpenses] = useState(false);
 
   return (
     <>

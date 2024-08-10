@@ -1,12 +1,15 @@
 // App.js
 import Chart from "react-apexcharts";
 
-const ChartPie = () => {
+const ChartPie = ({ totalExpenses, totalRevenu }) => {
+  const ratioEx = (totalExpenses / (totalExpenses + totalRevenu)) * 100;
+  const ratioRv = (totalRevenu / (totalExpenses + totalRevenu)) * 100;
+
   const options = {
     chart: {
       type: "pie",
     },
-    labels: ["Last Month", "Current Month"],
+    labels: ["Expense", "Revenu"],
     responsive: [
       {
         breakpoint: 480,
@@ -38,7 +41,7 @@ const ChartPie = () => {
     },
   };
 
-  const series = [44, 55];
+  const series = [ratioEx, ratioRv];
 
   return (
     <div className="row">

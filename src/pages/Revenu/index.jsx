@@ -3,7 +3,7 @@ import AddRevenu from "./AddRevenu";
 import ListRevenu from "./ListRevenu";
 
 function Expense() {
-  const [showRenvenu, setShowRenvenu] = useState(true);
+  const [showRenvenu, setShowRenvenu] = useState(false);
 
   return (
     <>

@@ -1,19 +1,11 @@
 /* eslint-disable react/prop-types */
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  fetchDetailUser,
-  logout,
-} from "../../../../redux/reduxSlices/accountSlice";
-import { useEffect } from "react";
+import { logout } from "../../../../redux/reduxSlices/accountSlice";
 
 function UserInfo({ user }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchDetailUser());
-  }, []);
 
   const handleLogout = () => {
     dispatch(logout());

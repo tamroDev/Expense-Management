@@ -5,6 +5,7 @@ import {
   getUserDetails,
   loginAccount,
 } from "../../service/auth";
+import { handleFetch } from "../thunk/thunkBuilder/handleBuilder";
 
 export const login = createAsyncThunk(
   "auth/login",
@@ -47,7 +48,7 @@ const authSlice = createSlice({
   name: "auth",
   initialState: {
     accessToken: Cookies.get("accessToken") || "",
-    userDetails: {},
+    userDetails: JSON.parse(localStorage.getItem("userDetails")) || {},
     status: "idle",
     error: null,
   },
@@ -56,13 +57,15 @@ const authSlice = createSlice({
       state.accessToken = "";
       state.refreshToken = "";
       state.userDetails = {};
+      localStorage.removeItem("userDetails");
       Cookies.remove("accessToken");
       Cookies.remove("refreshToken");
     },
   },
   extraReducers: (builder) => {
+    handleFetch(builder, register);
+    // Login
     builder
-      // Login
       .addCase(login.pending, (state) => {
         state.status = "loading";
       })
@@ -82,17 +85,6 @@ const authSlice = createSlice({
         state.status = "failed";
         state.error = action.payload.message;
       })
-      // Register
-      .addCase(register.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(register.fulfilled, (state) => {
-        state.status = "succeeded";
-      })
-      .addCase(register.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.payload.message;
-      })
       // Get Details Data
       .addCase(fetchDetailUser.pending, (state) => {
         state.status = "loading";
@@ -100,6 +92,7 @@ const authSlice = createSlice({
       .addCase(fetchDetailUser.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.userDetails = action.payload;
+        localStorage.setItem("userDetails", JSON.stringify(action.payload));
       })
       .addCase(fetchDetailUser.rejected, (state, action) => {
         state.status = "failed";

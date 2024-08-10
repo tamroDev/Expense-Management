@@ -1,95 +1,25 @@
 import { useRef } from "react";
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
+import mergeExpensesWithSettings from "../../helpers/convertCategory";
+import { settingRevenu } from "../Revenu/settingRevenu";
+import { settingSpending } from "../Expense/settingExpense";
+import { useSelector } from "react-redux";
 
-const arrExpense = [
-  {
-    id: 1,
-    month: 3,
-    name: "House Fee",
-    amount: "1000.0 $",
-    ratio: "40,55%",
-    up: true,
-  },
-  {
-    id: 2,
-    month: 1,
-    name: "Electricity bill",
-    amount: "100.0 $",
-    ratio: "27,55%",
-    up: false,
-  },
-  {
-    id: 3,
-    month: 1,
-    name: "Water fee",
-    amount: "90.2 $",
-    ratio: "7,55%",
-    up: true,
-  },
-  {
-    id: 4,
-    month: 6,
-    name: "School fees",
-    amount: "4450.0 $",
-    ratio: "10,55%",
-    up: false,
-  },
-  {
-    id: 5,
-    month: 1,
-    name: "Foods fee",
-    amount: "3170.0 $",
-    ratio: "10,55%",
-    up: true,
-  },
-];
+function FinancialReport({ hidden }) {
+  const { expenses, revenu } = useSelector((state) => state.statistic);
+  const newArrEx = mergeExpensesWithSettings(expenses, settingSpending);
+  const newArrRv = mergeExpensesWithSettings(revenu, settingRevenu);
 
-const arrIncome = [
-  {
-    id: 1,
-    name: "Salary",
-    month: 1,
-    amount: "20000.0 $",
-    ratio: "10%",
-    up: true,
-  },
-  {
-    id: 2,
-    name: "Stock",
-    month: 6,
-    amount: "100000.0 $",
-    ratio: "0%",
-    up: true,
-  },
-  {
-    id: 3,
-    name: "Overtime",
-    month: 1,
-    amount: "4000.0 $",
-    ratio: "3%",
-    up: false,
-  },
-  {
-    id: 4,
-    name: "Business",
-    month: 3,
-    amount: "4240.0 $",
-    ratio: "10%",
-    up: false,
-  },
-];
-
-function FinancialReport() {
-  const totalExpense = arrExpense.reduce((total, current) => {
-    const cleanedString = current.amount.replace(/[^0-9.]/g, "");
+  const totalExpense = newArrEx.reduce((total, current) => {
+    const cleanedString = current.budget.replace(/[^0-9.]/g, "");
 
     const number = parseFloat(cleanedString);
     return number + total;
   }, 0);
 
-  const totaIncome = arrIncome.reduce((total, current) => {
-    const cleanedString = current.amount.replace(/[^0-9.]/g, "");
+  const totaIncome = newArrRv.reduce((total, current) => {
+    const cleanedString = current.budget.replace(/[^0-9.]/g, "");
 
     const number = parseFloat(cleanedString);
     return number + total;
@@ -125,17 +55,19 @@ function FinancialReport() {
 
   return (
     <div className="financial-report p-7 custom-scrollbar overflow-auto w-full h-full">
-      <div className="w-[595px]  m-auto mb-4">
-        <button
-          onClick={generatePdf}
-          className="mt-4 px-4 py-3 bg-blue-500 text-white rounded flex gap-2"
-        >
-          <h1 className="ml-4">Download</h1>
-          <p>
-            PDF <i className="fa-solid fa-file-pdf"></i>
-          </p>
-        </button>
-      </div>
+      {hidden && (
+        <div className="w-[595px]  m-auto mb-4">
+          <button
+            onClick={generatePdf}
+            className="mt-4 px-4 py-3 bg-blue-500 text-white rounded flex gap-2"
+          >
+            <h1 className="ml-4">Download</h1>
+            <p>
+              PDF <i className="fa-solid fa-file-pdf"></i>
+            </p>
+          </button>
+        </div>
+      )}
       <div
         className="flex flex-col justify-between bg-white p-5 border w-[595px] h-[842px] m-auto"
         ref={reportRef}
@@ -158,30 +90,24 @@ function FinancialReport() {
                     Amount
                   </th>
                   <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                    Ratio (%)
+                    Date create
                   </th>
                 </tr>
               </thead>
               <tbody>
-                {arrExpense.map((item) => (
-                  <tr key={item.id}>
+                {newArrEx.map((item) => (
+                  <tr key={item._id}>
                     <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 ">
-                      {item.name}
+                      {item.nameCategory}
                     </th>
                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center">
                       {item.month}
                     </td>
                     <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center">
-                      {item.amount}
+                      {item.budget}
                     </td>
                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 font-bold">
-                      {item.up ? (
-                        <i className="fas fa-arrow-up text-emerald-500 mr-4"></i>
-                      ) : (
-                        <i className="fas fa-arrow-down text-orange-500 mr-4"></i>
-                      )}
-
-                      {item.ratio}
+                      {item.dateEnd}
                     </td>
                   </tr>
                 ))}
@@ -205,31 +131,24 @@ function FinancialReport() {
                     Amount
                   </th>
                   <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                    Ratio (%)
+                    Date create
                   </th>
                 </tr>
               </thead>
-
               <tbody>
-                {arrIncome.map((item) => (
-                  <tr key={item.id}>
+                {newArrRv.map((item) => (
+                  <tr key={item._id}>
                     <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 ">
-                      {item.name}
+                      {item.nameCategory}
                     </th>
                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center">
                       {item.month}
                     </td>
                     <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center">
-                      {item.amount}
+                      {item.budget}
                     </td>
                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 font-bold">
-                      {item.up ? (
-                        <i className="fas fa-arrow-up text-emerald-500 mr-4"></i>
-                      ) : (
-                        <i className="fas fa-arrow-down text-orange-500 mr-4"></i>
-                      )}
-
-                      {item.ratio}
+                      {item.dateEnd}
                     </td>
                   </tr>
                 ))}
@@ -258,7 +177,7 @@ function FinancialReport() {
           </p>
         </div>
         <div className="uppercase text-[10px] font-bold flex gap-5">
-          report date: <p className="text-red-500">{formattedDate}</p>{" "}
+          report date: <p className="text-red-500">{formattedDate}</p>
         </div>
       </div>
     </div>
