@@ -1,6 +1,7 @@
 import TableHome from "../../../../components/TableSpending";
 import TableSavingsFunds from "../../../../components/TableSavingsFunds";
 import ItemRenuve from "../ItemRevenu/ItemRenevu";
+import formatCurrencyUSD from "../../../../helpers/fomartMoney";
 
 const data = [
   {
@@ -23,8 +24,8 @@ function OverviewHome() {
   return (
     <div className={"w-full"}>
       <div className="flex gap-2">
-        <ItemRenuve up />
-        <ItemRenuve down />
+        <ItemRenuve formatCurrencyUSD={formatCurrencyUSD} up />
+        <ItemRenuve formatCurrencyUSD={formatCurrencyUSD} down />
       </div>
       <div className="bg-white w-full h-max mb-[20px] rounded-lg shadow-lg p-4">
         <h1 className="font-[700] uppercase textTitle text-[20px] text-black!tracking-[3px] mb-4 pb-2 w-max">

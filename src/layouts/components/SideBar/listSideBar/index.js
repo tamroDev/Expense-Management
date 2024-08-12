@@ -24,7 +24,7 @@ const listSideBar = [
     id: 5,
     title: "Savings",
     icon: "fa-solid fa-piggy-bank",
-    path: "/",
+    path: "/savings",
     currently: false,
   },
   {

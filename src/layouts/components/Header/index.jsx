@@ -11,7 +11,7 @@ import logo from "../../../assets/monye.png";
 
 const Header = () => {
   return (
-    <header className="flex fixed top-0 left-0 right-0 h-max bg-white shadow-2xl">
+    <header className="flex fixed top-0 left-0 right-0 h-max bg-white shadow-2xl z-[999999]">
       <ToastContainer />
       <Logo logo={logo} />
       <div className="flex-[85%] h-[70px] flex">

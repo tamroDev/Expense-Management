@@ -13,6 +13,7 @@ import Register from "../pages/Register";
 import Statistics from "../pages/Statistics";
 import FinancialReport from "../pages/report";
 import UserProfile from "../pages/Profile";
+import Savings from "../pages/Savings";
 
 const PublicRoutes = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ const PublicRoutes = createBrowserRouter([
       {
         path: "/profile",
         element: <ProtecredRoute element={<UserProfile />} />,
+      },
+      {
+        path: "/savings",
+        element: <ProtecredRoute element={<Savings />} />,
       },
     ],
   },

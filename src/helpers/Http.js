@@ -53,6 +53,7 @@ class Http {
               toast.error("Session expired. Please log in again.");
               Cookies.remove("accessToken");
               Cookies.remove("refreshToken");
+              localStorage.removeItem("userDetails");
               window.location.href = "/login";
               // Optionally redirect to login page
               return this.handleError(refreshError);

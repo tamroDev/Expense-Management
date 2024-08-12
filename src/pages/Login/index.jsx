@@ -18,16 +18,16 @@ const schema = yup.object().shape({
   email: yup
     .string()
     .trim()
-    .required("Email không được để trống !")
+    .required("Email not empty !")
     .matches(
       /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-      "Email không đúng định dạng !"
+      "Email format is wrong !"
     ),
   password: yup
     .string()
     .trim()
-    .required("Mật khẩu không được để trống !")
-    .min(8, "Mật khẩu phải có ít nhất 8 ký tự trở lên !"),
+    .required("Password not Empty !")
+    .min(8, "Password must have at least 8 characters or more!"),
 });
 
 function Login() {

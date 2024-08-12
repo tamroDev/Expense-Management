@@ -2,7 +2,7 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-function ItemRenevu({ up, down }) {
+function ItemRenevu({ up, down, formatCurrencyUSD }) {
   const { totalExpenses, totalRevenu } = useSelector(
     (state) => state.statistic
   );
@@ -14,7 +14,7 @@ function ItemRenevu({ up, down }) {
           <div>
             <h1 className="font-[700] opacity-70 mb-5">Revenu</h1>
             <span className="text-[22px] text-[#1b7759] font-[800] opacity-90">
-              {totalRevenu} $
+              {formatCurrencyUSD(totalRevenu)} $
             </span>
           </div>
           <div className="bg-[#98b4fa4f] text-blue-500 px-4 py-3 rounded-lg">
@@ -36,7 +36,7 @@ function ItemRenevu({ up, down }) {
           <div>
             <h1 className="font-[700] opacity-70 mb-5">Total Expenditure</h1>
             <span className="text-[22px] text-[#d33c3c] font-[800] opacity-90">
-              {totalExpenses} $
+              {formatCurrencyUSD(totalExpenses)} $
             </span>
           </div>
           <div className="bg-[#98b4fa4f] text-blue-500 px-4 py-3 rounded-lg">

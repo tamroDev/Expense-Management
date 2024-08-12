@@ -9,7 +9,7 @@ import { useEffect } from "react";
 
 function Statistics() {
   const dispatch = useDispatch();
-  const { _id } = useSelector((state) => state.auth.userDetails);
+  const { _id, limit } = useSelector((state) => state.auth.userDetails);
 
   useEffect(() => {
     if (_id) {
@@ -22,7 +22,7 @@ function Statistics() {
   );
 
   return (
-    <div className="custom-scrollbar overflow-auto w-full h-full flex flex-auto flex-wrap justify-start items-center gap-3 py-2 sm:justify-center sm:w-full">
+    <div className="relative custom-scrollbar overflow-auto w-full h-full flex flex-auto flex-wrap justify-start items-center gap-3 py-2 sm:justify-center sm:w-full">
       <Box>
         <Chart totalExpenses={totalExpenses} totalRevenu={totalRevenu} />
       </Box>
@@ -30,6 +30,7 @@ function Statistics() {
         <LimitSpending
           totalExpenses={totalExpenses}
           totalRevenu={totalRevenu}
+          limit={limit}
         />
       </Box>
       <StatisticsGroup

@@ -47,3 +47,13 @@ export const getUserDetails = async () => {
     throw error;
   }
 };
+
+export const updateLimit = async (id, limit) => {
+  try {
+    const data = await http.put(`/auth/updateLimit/${id}`, { limit });
+    return data;
+  } catch (error) {
+    console.error("Error updating user limit", error);
+    throw error;
+  }
+};

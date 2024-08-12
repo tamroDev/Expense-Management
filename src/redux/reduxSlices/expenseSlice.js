@@ -1,3 +1,4 @@
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
   createExpense,
   deleteExpenseById,
@@ -9,7 +10,6 @@ import {
   handlePost,
   handleFetch,
 } from "../thunk/thunkBuilder/handleBuilder";
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { logout } from "./accountSlice";
 import { createFetchThunk } from "../thunk/thunkService/fetchDataThunk";
 
@@ -69,6 +69,7 @@ const expenseSlice = createSlice({
     handleFetch(builder, getExpenses, (state, action) => {
       state.expenseList = action.payload;
     });
+
     handlePost(builder, createEX);
     handleDelete(builder, deleteExpense, (state, action) => {
       state.expenseList = state.expenseList.filter(

@@ -4,8 +4,8 @@ import {
   createAccount,
   getUserDetails,
   loginAccount,
+  updateLimit,
 } from "../../service/auth";
-import { handleFetch } from "../thunk/thunkBuilder/handleBuilder";
 
 export const login = createAsyncThunk(
   "auth/login",
@@ -44,6 +44,19 @@ export const fetchDetailUser = createAsyncThunk(
   }
 );
 
+export const updateLimitUser = createAsyncThunk(
+  "auth/updateLimit", // Sửa lại tên hành động đúng
+  async ({ id, limit }, thunkAPI) => {
+    try {
+      const data = await updateLimit(id, limit);
+
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
 const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -63,7 +76,6 @@ const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    handleFetch(builder, register);
     // Login
     builder
       .addCase(login.pending, (state) => {
@@ -97,6 +109,36 @@ const authSlice = createSlice({
       .addCase(fetchDetailUser.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
+      })
+      // REGISTER AUTH
+      .addCase(register.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(register.fulfilled, (state) => {
+        state.status = "succeeded";
+      })
+      .addCase(register.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload.message;
+      })
+      // UPDATE LIMIT
+      .addCase(updateLimitUser.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(updateLimitUser.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.userDetails.limit = action.meta.arg.limit;
+        let oldUser = JSON.parse(localStorage.getItem("userDetails"));
+        oldUser = {
+          ...oldUser,
+          limit: action.meta.arg.limit,
+        };
+
+        localStorage.setItem("userDetails", JSON.stringify(oldUser));
+      })
+      .addCase(updateLimitUser.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload.message;
       });
   },
 });
